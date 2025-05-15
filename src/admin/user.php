@@ -4,12 +4,14 @@
 <?php
 include("../includes/head.php");
 include("./includes/adminHeader.php");
+$username = $_SESSION['username'];
 ?>
 
 <!-- Include Feather Icons library from CDN -->
 <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 
 <body>
+    <!-- <?php echo $username; ?> -->
     <div class="container-fluid">
         <div class="row">
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
@@ -22,17 +24,19 @@ include("./includes/adminHeader.php");
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">App</h1>
+                    <h1 class="h2">Users</h1>
                 </div>
-                <h2>All Application is show here</h2>
+                <h2>All users are in here</h2>
                 <div class="table-responsive">
-                    <button class="btn btn-success mt-3" id="newApp"><i class="bi bi-plus-lg"></i> Add New App</button>
+                    <button class="btn btn-success mt-3" id="newUser"><i class="bi bi-plus-lg"></i> Add New User</button>
                     <table class="table table-striped table-sm">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">App</th>
-                                <th scope="col">Job Type</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Job</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Role</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -43,61 +47,79 @@ include("./includes/adminHeader.php");
         </div>
     </div>
 
-    <!-- Add New App Categories Modal -->
+    <!-- Add New User Modal -->
     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add New App</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add New User</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="alert alert-primary" pekerjaan="alert" id="addMessage" style="display:none;"></div>
-                    <form method="POST" id="addAppForm">
+                    <form method="POST" id="addUserForm">
                         <div class="form-outline form-dark mb-4">
-                            <label class="form-label" for="addApplication">Application Name</label>
-                            <input type="text" name="Application" id="addApplication" class="form-control form-control" />
-                            <small class="text-danger ml-5" id="addApplicationError"></small>
+                            <label class="form-label" for="addUsername">Username</label>
+                            <input type="text" name="Username" id="addUsername" class="form-control form-control" />
+                            <small class="text-danger ml-5" id="addUsernameError"></small>
                         </div>
                         <div class="form-outline form-dark mb-4">
                             <label class="form-label" for="addPekerjaan">Job</label>
                             <select class="form-select" id="addPekerjaan" aria-label="Floating label select example" name="Pekerjaan"></select>
                         </div>
+                        <div class="form-outline form-dark mb-4">
+                            <label class="form-label" for="addEmail">Email</label>
+                            <input type="email" name="Email" id="addEmail" class="form-control form-control" aria-describedby="eamilHelp" />
+                            <small class="text-danger ml-5" id="addEmailError"></small>
+                        </div>
+                        <div class="form-outline form-dark mb-4">
+                            <label class="form-label" for="addRole">Role</label>
+                            <select class="form-select" id="addRole" aria-label="Floating label select example" name="Role"></select>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button id="btnAdd" type="button" class="btn btn-primary">Add Application</button>
+                    <button id="btnAdd" type="button" class="btn btn-primary">Add User</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Edit Existing Pekerjaan Categories Modal -->
+    <!-- Edit Existing User Modal -->
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Existing App</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Existing User</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="alert alert-primary" pekerjaan="alert" id="editMessage" style="display:none;"></div>
-                    <form method="POST" id="editAppForm">
+                    <form method="POST" id="editUserForm">
                         <div class="form-outline form-dark mb-4">
-                            <label class="form-label" for="editApplication">Application Name</label>
-                            <input type="text" name="Application" id="editApplication" class="form-control form-control" />
-                            <small class="text-danger ml-5" id="editApplicationError"></small>
+                            <label class="form-label" for="editUsername">Username</label>
+                            <input type="text" name="Username" id="editUsername" class="form-control form-control" />
+                            <small class="text-danger ml-5" id="editUsernameError"></small>
                         </div>
                         <div class="form-outline form-dark mb-4">
                             <label class="form-label" for="editPekerjaan">Job</label>
                             <select class="form-select" id="editPekerjaan" aria-label="Floating label select example" name="Pekerjaan"></select>
                         </div>
+                        <div class="form-outline form-dark mb-4">
+                            <label class="form-label" for="editEmail">Email</label>
+                            <input type="email" name="Email" id="editEmail" class="form-control form-control" />
+                            <small class="text-danger ml-5" id="editEmailError"></small>
+                        </div>
+                        <div class="form-outline form-dark mb-4">
+                            <label class="form-label" for="editRole">Role</label>
+                            <select class="form-select" id="editRole" aria-label="Floating label select example" name="Role"></select>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button id="btnSave" type="button" class="btn btn-primary">Save Application Changes</button>
+                    <button id="btnSave" type="button" class="btn btn-primary">Save User Changes</button>
                 </div>
             </div>
         </div>
@@ -116,23 +138,54 @@ include("./includes/adminHeader.php");
         $(document).ready(function() {
             //* Load All Users *//
             $.ajax({
-                url: '../admin/app/getApp.php',
+                url: '../admin/user/getUser.php',
                 dataType: 'json',
                 success: function(data) {
                     console.log(data);
                     let row = '';
                     let i = 1;
+
+                    // Check jenis_role from PHP session
+                    var userJenisRole = <?php echo $_SESSION['jenis_role']; ?>;
+
                     $.each(data, function(key, value) {
                         row += '<tr>';
                         row += '<td>' + i + '</td>';
-                        row += '<td>' + value.app_name + '</td>';
+                        row += '<td>' + value.username + '</td>';
                         row += '<td>' + value.pekerjaan_description + '</td>';
+                        row += '<td>' + value.email + '</td>';
+                        row += '<td>' + value.role_description + '</td>';
                         row += '<td>';
-                        row +=
-                            '<button class="btnEdit btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal" data-id="' +
-                            value.id + '"><i class="bi bi-pencil"></i> Edit</button> ';
-                        row += '<button class="btnDelete btn btn-danger" data-id="' + value.id +
-                            '"><i class="bi bi-trash"></i> Delete</button>';
+
+                        // console.log(value.username);
+
+                        // Check if userJenisRole is 1 for enabling edit and delete
+                        if (userJenisRole === 1) {
+                            row += '<button class="btnEdit btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal" data-id="' +
+                                value.id + '"><i class="bi bi-pencil"></i> Edit</button> ';
+                            row += '<button class="btnDelete btn btn-danger" data-id="' + value.id +
+                                '"><i class="bi bi-trash"></i> Delete</button>';
+                        } else if (userJenisRole === 2) {
+                            // Check if the username matches
+                            row += ('<?php echo $username; ?>' === value.username) ?
+                                '<button class="btnEdit btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal" data-id="' + value.id + '"><i class="bi bi-pencil"></i> Edit</button> ' +
+                                '<button class="btnDelete btn btn-danger" data-id="' + value.id + '"><i class="bi bi-trash"></i> Delete</button>' :
+                                (value.role_description === 'user') ?
+                                '<button class="btnEdit btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal" data-id="' + value.id + '"><i class="bi bi-pencil"></i> Edit</button> ' +
+                                '<button class="btnDelete btn btn-danger" data-id="' + value.id + '"><i class="bi bi-trash"></i> Delete</button>' :
+                                '<span class="text-danger">You don\'t have permission</span>';
+                        } else if (userJenisRole === 3) {
+                            // If userJenisRole is 3, allow edit and delete for role_description 'user' and 'admin'
+                            row += '<button class="btnEdit btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal" data-id="' +
+                                value.id + '"><i class="bi bi-pencil"></i> Edit</button> ';
+                            row += '<button class="btnDelete btn btn-danger" data-id="' + value.id +
+                                '"><i class="bi bi-trash"></i> Delete</button>';
+                        } else {
+                            // For any other cases
+                            row += '<span class="text-danger">You don\'t have permission</span>';
+                        }
+
+
                         row += '</td>';
                         row += '</tr>';
                         i++;
@@ -143,7 +196,7 @@ include("./includes/adminHeader.php");
 
             //* Load Pekerjaan *//
             $.ajax({
-                url: '../admin/app/getPekerjaan.php',
+                url: '../admin/user/getPekerjaan.php',
                 dataType: 'json',
                 success: function(data) {
                     console.log(data);
@@ -157,19 +210,35 @@ include("./includes/adminHeader.php");
                 }
             });
 
-            //* Add New App *//
-            $('#newApp').click(function() {
+            //* Load Role *//
+            $.ajax({
+                url: '../admin/user/getRole.php',
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data);
+                    let options = '';
+                    $.each(data, function(key, value) {
+                        options += '<option value="' + value.id + '">' + value.role_name +
+                            '</option>';
+                    });
+                    $('#addRole').html(options);
+                    $('#editRole').html(options);
+                }
+            });
+
+            //* Add New User *//
+            $('#newUser').click(function() {
                 $('#addMessage').hide();
-                $('#addAppForm')[0].reset();
+                $('#addUserForm')[0].reset();
                 $('#addModal').modal('show');
             });
 
             //* Save New User *//
             $('#btnAdd').click(function() {
                 $.ajax({
-                    url: '../admin/app/addApp.php',
+                    url: '../admin/user/addUser.php',
                     method: 'POST',
-                    data: $('#addAppForm').serialize(),
+                    data: $('#addUserForm').serialize(),
                     success: function(response) {
                         console.log(response);
                         let data = JSON.parse(response);
@@ -190,7 +259,7 @@ include("./includes/adminHeader.php");
             $(document).on('click', '.btnEdit', function() {
                 let userId = $(this).data('id');
                 $.ajax({
-                    url: '../admin/app/setApp.php',
+                    url: '../admin/user/setUser.php',
                     method: 'POST',
                     data: {
                         id: userId
@@ -198,8 +267,10 @@ include("./includes/adminHeader.php");
                     dataType: 'json',
                     success: function(data) {
                         console.log(data);
-                        $('#editApplication').val(data.app_name);
+                        $('#editUsername').val(data.username);
                         $('#editPekerjaan').val(data.jenis_pekerjaan);
+                        $('#editEmail').val(data.email);
+                        $('#editRole').val(data.jenis_role);
                         $('#editMessage').hide();
                         $('#btnSave').data('id', userId);
                         $('#editModal').modal('show');
@@ -211,9 +282,9 @@ include("./includes/adminHeader.php");
             $('#btnSave').click(function() {
                 let userId = $(this).data('id');
                 $.ajax({
-                    url: '../admin/app/modifyApp.php',
+                    url: '../admin/user/modifyUser.php',
                     method: 'POST',
-                    data: $('#editAppForm').serialize() + '&id=' + userId,
+                    data: $('#editUserForm').serialize() + '&id=' + userId,
                     success: function(response) {
                         console.log(response);
                         let data = JSON.parse(response);
@@ -241,11 +312,11 @@ include("./includes/adminHeader.php");
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete this App!'
+                    confirmButtonText: 'Yes, delete user!'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: '../admin/app/removeApp.php',
+                            url: '../admin/user/removeUser.php',
                             method: 'POST',
                             data: {
                                 id: userId
@@ -256,7 +327,7 @@ include("./includes/adminHeader.php");
                                 if (data.status === 'success') {
                                     Swal.fire(
                                         'Deleted!',
-                                        'App has been deleted.',
+                                        'User has been deleted.',
                                         'success'
                                     ).then(() => {
                                         location.reload();
@@ -264,7 +335,7 @@ include("./includes/adminHeader.php");
                                 } else {
                                     Swal.fire(
                                         'Error!',
-                                        'Failed to delete App.',
+                                        'Failed to delete user.',
                                         'error'
                                     );
                                 }
@@ -273,6 +344,7 @@ include("./includes/adminHeader.php");
                     }
                 });
             });
+
         });
     </script>
 
@@ -295,6 +367,7 @@ include("./includes/adminHeader.php");
             });
         }
     </script>
+
 </body>
 
 </html>

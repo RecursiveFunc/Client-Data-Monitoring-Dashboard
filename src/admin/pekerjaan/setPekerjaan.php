@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['id'];
 
     // Use prepared statement to prevent SQL injection
-    $sql = "SELECT * FROM pekerjaan WHERE id = :id";
+    $sql = "SELECT * FROM jobs WHERE id = :id";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     $stmt->execute();

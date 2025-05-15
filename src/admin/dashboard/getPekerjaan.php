@@ -4,7 +4,7 @@ include('../../database/pgconn.php');
 
 try {
     // Use a prepared statement for better security
-    $stmt = $conn->prepare("SELECT * FROM pekerjaan");
+    $stmt = $conn->prepare("SELECT * FROM jobs");
     $stmt->execute();
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

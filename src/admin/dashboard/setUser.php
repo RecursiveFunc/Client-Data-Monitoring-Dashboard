@@ -6,7 +6,7 @@ try {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = $_POST['id'];
 
-        $stmt = $conn->prepare("SELECT * FROM dashboard WHERE id=:id");
+        $stmt = $conn->prepare("SELECT * FROM entries WHERE id=:id");
         $stmt->bindParam(":id", $id, PDO::PARAM_INT);
         $stmt->execute();
 

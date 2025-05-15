@@ -9,7 +9,7 @@ try {
         $slug = $_POST['Slug'];
         $pekId = $_POST['Pekerjaan'];
 
-        $stmt = $conn->prepare("UPDATE dashboard SET \"user\"=:user, slug=:slug, jenis_pekerjaan=:pekId WHERE id=:id");
+        $stmt = $conn->prepare("UPDATE entries SET \"user\"=:user, slug=:slug, jenis_pekerjaan=:pekId WHERE id=:id");
         $stmt->bindParam(":id", $id, PDO::PARAM_INT);
         $stmt->bindParam(":user", $user, PDO::PARAM_STR);
         $stmt->bindParam(":slug", $slug, PDO::PARAM_STR);

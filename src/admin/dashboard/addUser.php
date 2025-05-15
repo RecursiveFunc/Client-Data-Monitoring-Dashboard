@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         // Use a prepared statement to prevent SQL injection
-        $stmt = $conn->prepare('INSERT INTO dashboard ("user", slug, jenis_pekerjaan) VALUES (:user, :slug, :pekId)');
+        $stmt = $conn->prepare('INSERT INTO entries ("user", slug, jenis_pekerjaan) VALUES (:user, :slug, :pekId)');
         $stmt->bindParam(':user', $user, PDO::PARAM_STR);
         $stmt->bindParam(':slug', $slug, PDO::PARAM_STR);
         $stmt->bindParam(':pekId', $pekId, PDO::PARAM_INT);

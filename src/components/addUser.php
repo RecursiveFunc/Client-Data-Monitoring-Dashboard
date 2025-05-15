@@ -18,13 +18,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Modify the SQL query for PostgreSQL
     $sql = "INSERT INTO users (username, email, password, jenis_role, jenis_pekerjaan) VALUES ('$username', '$email', '$hashed_password', $jenis_role, '$jenis_pekerjaan')";
 
-    // Use $conn (PDO instance) directly
-    $result = $conn->query($sql);
+    // Check if the connection is valid before using it
+    if ($conn) {
+        try {
+            // Use $conn (PDO instance) directly
+            $result = $conn->query($sql);
 
-    if ($result) {
-        echo "Registration successful!";
+            if ($result) {
+                echo "Registration successful!";
+            } else {
+                echo "Error: " . $sql . "<br>Query Error"; //Simplified error
+            }
+        } catch (PDOException $e) {
+            echo "Error: " . $sql . "<br>Query Error: " . $e->getMessage();
+        }
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->errorInfo()[2];
+        echo "Error: Database connection is invalid."; // Handle the case where $conn is null
     }
 }
 

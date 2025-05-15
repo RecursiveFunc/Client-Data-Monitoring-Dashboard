@@ -6,7 +6,7 @@ if (isset($_POST['id'])) {
     $id = $_POST['id'];
 
     // Use prepared statement to prevent SQL injection
-    $sql = "DELETE FROM pekerjaan WHERE id = :id";
+    $sql = "DELETE FROM jobs WHERE id = :id";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 

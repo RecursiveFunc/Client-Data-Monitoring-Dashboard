@@ -37,7 +37,7 @@ if (isset($_SESSION['jenis_role']) && $_SESSION['jenis_role']) {
                 </a>
               </li>';
         echo '<li class="nav-item">
-            <a class="nav-link" href="users.php">
+            <a class="nav-link" href="user.php">
                 <span data-feather="users"></span>
                 Users
             </a>
@@ -57,7 +57,7 @@ if (isset($_SESSION['jenis_role']) && $_SESSION['jenis_role']) {
         echo '<li class="nav-item">
             <a class="nav-link" href="app.php">
                 <span data-feather="monitor"></span>
-                Application
+                Apps
             </a>
         </li>';
     }

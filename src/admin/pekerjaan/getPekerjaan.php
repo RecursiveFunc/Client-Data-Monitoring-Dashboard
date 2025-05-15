@@ -5,8 +5,8 @@ include('../../database/pgconn.php');
 if (isset($_POST['id'])) {
     $id = $_POST['id'];
 
-    $sql = "SELECT id, nama_pekerjaan
-            FROM pekerjaan
+    $sql = "SELECT id, job_name
+            FROM jobs
             WHERE id=:id";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(":id", $id, PDO::PARAM_INT);
@@ -15,8 +15,8 @@ if (isset($_POST['id'])) {
 
     echo json_encode($result);
 } else {
-    $sql = "SELECT id, nama_pekerjaan
-            FROM pekerjaan";
+    $sql = "SELECT id, job_name
+            FROM jobs";
     $stmt = $conn->query($sql);
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

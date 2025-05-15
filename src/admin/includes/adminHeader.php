@@ -48,7 +48,7 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
                     <p>Are you sure to sign out?</p>
                 </div>
                 <div class="modal-footer">
-                    <a class="btn btn-primary" href="/NEW_SERVER_SIDE-main/src/views/sign_out.php">Yes, Sign me out</a>
+                    <a class="btn btn-primary" href="../../src/views/sign_out.php">Yes, Sign me out</a>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                 </div>
             </div>

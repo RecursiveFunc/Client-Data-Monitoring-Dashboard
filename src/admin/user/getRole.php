@@ -2,7 +2,7 @@
 
 include('../../database/pgconn.php');
 
-$sql = "SELECT * FROM role";
+$sql = "SELECT * FROM roles";
 $stmt = $conn->query($sql);
 
 if ($stmt) {

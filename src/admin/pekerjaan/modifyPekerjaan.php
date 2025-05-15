@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pekerjaan = $_POST['Pekerjaan'];
 
     // Use prepared statement to prevent SQL injection
-    $sql = "UPDATE pekerjaan SET nama_pekerjaan = :pekerjaan WHERE id = :id";
+    $sql = "UPDATE jobs SET job_name = :pekerjaan WHERE id = :id";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':pekerjaan', $pekerjaan, PDO::PARAM_STR);
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);

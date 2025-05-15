@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         // Use prepared statements to prevent SQL injection
-        $stmt = $conn->prepare("INSERT INTO pekerjaan (nama_pekerjaan) VALUES (:pekerjaan)");
+        $stmt = $conn->prepare("INSERT INTO jobs (job_name) VALUES (:pekerjaan)");
         $stmt->bindParam(':pekerjaan', $pekerjaan);
 
         if ($stmt->execute()) {

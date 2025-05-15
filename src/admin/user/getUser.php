@@ -4,10 +4,10 @@ include('../../database/pgconn.php');
 
 if (isset($_POST['id'])) {
     $id = $_POST['id'];
-    $sql = "SELECT p.*, b.nama_pekerjaan AS pekerjaan_description, r.name AS role_description
+    $sql = "SELECT p.*, b.job_name AS pekerjaan_description, r.role_name AS role_description
             FROM users p
-            JOIN pekerjaan b ON p.jenis_pekerjaan = b.id
-            JOIN role r ON p.jenis_role = CAST(r.id AS VARCHAR)
+            JOIN jobs b ON p.jenis_pekerjaan = b.id
+            JOIN roles r ON p.jenis_role = CAST(r.id AS VARCHAR)
             WHERE p.id=:id";
 
     $stmt = $conn->prepare($sql);
@@ -24,10 +24,10 @@ if (isset($_POST['id'])) {
 
     $stmt->closeCursor();
 } else {
-    $sql = "SELECT p.*, b.nama_pekerjaan AS pekerjaan_description, r.name AS role_description
+    $sql = "SELECT p.*, b.job_name AS pekerjaan_description, r.role_name AS role_description
             FROM users p
-            JOIN pekerjaan b ON p.jenis_pekerjaan = b.id
-            JOIN role r ON p.jenis_role = CAST(r.id AS VARCHAR)";
+            JOIN jobs b ON p.jenis_pekerjaan = b.id
+            JOIN roles r ON p.jenis_role = CAST(r.id AS VARCHAR)";
 
     $stmt = $conn->query($sql);
 

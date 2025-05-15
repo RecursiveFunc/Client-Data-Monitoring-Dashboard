@@ -116,7 +116,7 @@ include("./includes/adminHeader.php");
                     $.each(data, function(key, value) {
                         row += '<tr>';
                         row += '<td>' + i + '</td>';
-                        row += '<td>' + value.nama_pekerjaan + '</td>';
+                        row += '<td>' + value.job_name + '</td>';
                         row += '<td>';
                         row += '<button class="btnEdit btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal" data-id="' + value.id + '"><i class="bi bi-pencil"></i> Edit</button> ';
                         row += '<button class="btnDelete btn btn-danger" data-id="' + value.id + '"><i class="bi bi-trash"></i> Delete</button>';
@@ -184,7 +184,7 @@ include("./includes/adminHeader.php");
                     dataType: 'json',
                     success: function(data) {
                         console.log(data);
-                        $('#editPekerjaan').val(data.nama_pekerjaan);
+                        $('#editPekerjaan').val(data.job_name);
                         $('#editMessage').hide();
                         $('#btnSave').data('id', pekId);
                         $('#editModal').modal('show');

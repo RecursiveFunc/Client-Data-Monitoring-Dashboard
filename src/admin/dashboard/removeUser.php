@@ -6,7 +6,7 @@ try {
     if (isset($_POST['id'])) {
         $id = $_POST['id'];
 
-        $stmt = $conn->prepare("DELETE FROM dashboard WHERE id=:id");
+        $stmt = $conn->prepare("DELETE FROM entries WHERE id=:id");
         $stmt->bindParam(":id", $id, PDO::PARAM_INT);
         $stmt->execute();
 

@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pekId = $_POST['Pekerjaan'];
 
     // Use prepared statement to prevent SQL injection
-    $sql = "INSERT INTO app (app, jenis_pekerjaan) VALUES (:app, :pekId)";
+    $sql = "INSERT INTO apps (app_name, jenis_pekerjaan) VALUES (:app, :pekId)";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':app', $app, PDO::PARAM_STR);
     $stmt->bindParam(':pekId', $pekId, PDO::PARAM_INT);
